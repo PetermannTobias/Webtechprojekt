@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DebtCalculationApplicationTests {
 
 	@Test
-	@DisplayName("Test1")
 	void contextLoads() {
 	}
 
