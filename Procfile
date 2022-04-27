@@ -1,0 +1,1 @@
+web java -Dserver.port=$JAVA_OPTS -jar build/libs/debt-calculation-0.0.1-SNAPSHOT.jar
