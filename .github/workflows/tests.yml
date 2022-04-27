@@ -13,4 +13,4 @@ jobs:
           distribution: "adopt"
           java-version: 17
       - name: clean build
-        run: $ gradlew.bat clean test --info --stacktrace
+        run: .\gradlew.bat clean test --info --stacktrace
