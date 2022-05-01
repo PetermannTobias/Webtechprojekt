@@ -1,34 +1,14 @@
-package de.htwberlin.persistence;
+package de.htwberlin.web.api;
 
-import javax.persistence.*;
-
-@Entity(name = "persons")
-public class PersonEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(name = "firstname", nullable = false)
+public class PersonCreateRequest {
     private String firstname;
-
-    @Column(name = "lastname", nullable = false)
     private String lastname;
-
-    @Column(name = "vaccinated")
     private boolean vaccinated;
 
-    protected PersonEntity() {}
-
-    public PersonEntity(String firstname, String lastname, boolean vaccinated) {
+    public PersonCreateRequest(String firstname, String lastname, boolean vaccinated) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.vaccinated = vaccinated;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getFirstname() {

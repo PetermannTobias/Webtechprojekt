@@ -3,6 +3,7 @@ package de.htwberlin.service;
 import de.htwberlin.persistence.PersonEntity;
 import de.htwberlin.persistence.PersonRepository;
 import de.htwberlin.web.api.Person;
+import de.htwberlin.web.api.PersonCreateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +21,27 @@ public class PersonService {
     public List<Person> findAll(){
         List<PersonEntity> persons = personRepository.findAll();
         return persons.stream()
-                .map(personEntity -> new Person(
-                        personEntity.getId(),
-                        personEntity.getFirstname(),
-                        personEntity.getLastname(),
-                        personEntity.isVaccinated()))
+                .map(this::transformEntity)
                 .collect(Collectors.toList());
     }
 
+    public Person findById(long id){
+        var personEntity = personRepository.findById(id);
+        return personEntity.map(this::transformEntity).orElse(null);
+    }
 
+    public Person create(PersonCreateRequest request) {
+        var personEntity = new PersonEntity(request.getFirstname(), request.getLastname(), request.isVaccinated());
+        personEntity = personRepository.save(personEntity);
+        return transformEntity(personEntity);
+    }
 
+    private Person transformEntity(PersonEntity personEntity){
+        return new Person(
+                personEntity.getId(),
+                personEntity.getFirstname(),
+                personEntity.getLastname(),
+                personEntity.isVaccinated()
+        );
+    }
 }
