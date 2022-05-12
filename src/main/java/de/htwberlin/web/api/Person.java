@@ -5,12 +5,14 @@ public class Person {
     private long id;
     private String firstname;
     private String lastname;
+    private String gender;
     private boolean vaccinated;
 
-    public Person(long id, String firstname, String lastname, boolean vaccinated) {
+    public Person(long id, String firstname, String lastname,String gender, boolean vaccinated) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender = gender;
         this.vaccinated = vaccinated;
     }
 
@@ -20,6 +22,14 @@ public class Person {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getFirstname() {

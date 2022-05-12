@@ -3,12 +3,22 @@ package de.htwberlin.web.api;
 public class PersonManipulationRequest {
     private String firstname;
     private String lastname;
+    private String gender;
     private boolean vaccinated;
 
-    public PersonManipulationRequest(String firstname, String lastname, boolean vaccinated) {
+    public PersonManipulationRequest(String firstname, String lastname,String gender, boolean vaccinated) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.gender = gender;
         this.vaccinated = vaccinated;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getFirstname() {
