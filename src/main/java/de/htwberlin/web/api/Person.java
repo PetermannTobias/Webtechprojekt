@@ -7,13 +7,15 @@ public class Person {
     private String lastname;
     private String gender;
     private boolean vaccinated;
+    private Long petId;
 
-    public Person(long id, String firstname, String lastname,String gender, boolean vaccinated) {
+    public Person(long id, String firstname, String lastname, String gender, boolean vaccinated, Long petId) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.gender = gender;
         this.vaccinated = vaccinated;
+        this.petId = petId;
     }
 
     public long getId() {
@@ -54,5 +56,13 @@ public class Person {
 
     public void setVaccinated(boolean vaccinated) {
         this.vaccinated = vaccinated;
+    }
+
+    public Long getPetId() {
+        return petId;
+    }
+
+    public void setPetId(Long petId) {
+        this.petId = petId;
     }
 }

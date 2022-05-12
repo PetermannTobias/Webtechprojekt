@@ -17,9 +17,7 @@ public class PetEntity {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private PersonEntity owner;
 
