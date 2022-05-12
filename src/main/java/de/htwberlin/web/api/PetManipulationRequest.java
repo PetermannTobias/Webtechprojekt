@@ -4,10 +4,12 @@ public class PetManipulationRequest {
 
     private String name;
     private String gender;
+    private Long ownerId;
 
-    public PetManipulationRequest(String name, String gender) {
+    public PetManipulationRequest(String name, String gender, Long ownerId) {
         this.name = name;
         this.gender = gender;
+        this.ownerId = ownerId;
     }
 
     public String getName() {
@@ -24,5 +26,13 @@ public class PetManipulationRequest {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

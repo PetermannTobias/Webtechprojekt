@@ -14,28 +14,30 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final PersonTransformer personTransformer;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PersonTransformer personTransformer) {
         this.personRepository = personRepository;
+        this.personTransformer = personTransformer;
     }
 
     public List<Person> findAll(){
         List<PersonEntity> persons = personRepository.findAll();
         return persons.stream()
-                .map(this::transformEntity)
+                .map(personTransformer::transformEntity)
                 .collect(Collectors.toList());
     }
 
     public Person findById(long id){
         var personEntity = personRepository.findById(id);
-        return personEntity.map(this::transformEntity).orElse(null);
+        return personEntity.map(personTransformer::transformEntity).orElse(null);
     }
 
     public Person create(PersonManipulationRequest request) {
         var gender = Gender.valueOf(request.getGender());
         var personEntity = new PersonEntity(request.getFirstname(), request.getLastname(), request.isVaccinated(), gender);
         personEntity = personRepository.save(personEntity);
-        return transformEntity(personEntity);
+        return personTransformer.transformEntity(personEntity);
     }
 
     public Person update(Long id, PersonManipulationRequest request) {
@@ -50,7 +52,7 @@ public class PersonService {
         personEntity.setVaccinated(request.isVaccinated());
         personEntity.setGender(Gender.valueOf(request.getGender()));
         personEntity = personRepository.save(personEntity);
-        return transformEntity(personEntity);
+        return personTransformer.transformEntity(personEntity);
     }
 
     public boolean deleteById(Long id){
@@ -62,14 +64,5 @@ public class PersonService {
         return true;
     }
 
-    private Person transformEntity(PersonEntity personEntity){
-        var gender = personEntity.getGender() !=null ? personEntity.getGender().name() : Gender.UNKNOWN.name();
-        return new Person(
-                personEntity.getId(),
-                personEntity.getFirstname(),
-                personEntity.getLastname(),
-                gender,
-                personEntity.isVaccinated()
-        );
-    }
+
 }

@@ -1,6 +1,7 @@
 package de.htwberlin.service;
 
 import de.htwberlin.persistence.Gender;
+import de.htwberlin.persistence.PersonRepository;
 import de.htwberlin.persistence.PetEntity;
 import de.htwberlin.persistence.PetRepository;
 import de.htwberlin.web.api.Pet;
@@ -14,9 +15,13 @@ import java.util.stream.Collectors;
 public class PetService {
 
     private final PetRepository petRepository;
+    private final PersonRepository personRepository;
+    private final PersonTransformer personTransformer;
 
-    public PetService(PetRepository petRepository) {
+    public PetService(PetRepository petRepository, PersonRepository personRepository, PersonTransformer personTransformer) {
         this.petRepository = petRepository;
+        this.personRepository = personRepository;
+        this.personTransformer = personTransformer;
     }
 
     public List<Pet> findAll() {
@@ -28,8 +33,8 @@ public class PetService {
 
     public Pet create(PetManipulationRequest request) {
         var gender = Gender.valueOf(request.getGender());
-
-        var petEntity = new PetEntity(request.getName(),gender);
+        var owner = personRepository.findById(request.getOwnerId()).orElseThrow();
+        var petEntity = new PetEntity(request.getName(),gender, owner);
         petEntity = petRepository.save(petEntity);
         return  transformEntity(petEntity);
     }
@@ -39,7 +44,7 @@ public class PetService {
         return new Pet(
                 petEntity.getId(),
                 petEntity.getName(),
-                gender
-        );
+                gender,
+                personTransformer.transformEntity(petEntity.getOwner()));
     }
 }

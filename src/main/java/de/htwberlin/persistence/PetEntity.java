@@ -17,15 +17,18 @@ public class PetEntity {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
+
+
     @OneToOne
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private PersonEntity owner;
 
     public PetEntity(){}
 
-    public PetEntity(String name, Gender gender) {
+    public PetEntity(String name, Gender gender, PersonEntity owner) {
         this.name = name;
         this.gender = gender;
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -46,5 +49,13 @@ public class PetEntity {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public PersonEntity getOwner() {
+        return owner;
+    }
+
+    public void setOwner(PersonEntity owner) {
+        this.owner = owner;
     }
 }

@@ -5,11 +5,13 @@ public class Pet {
     private long id;
     private String name;
     private String gender;
+    private Person person;
 
-    public Pet(long id, String name, String gender) {
+    public Pet(long id, String name, String gender, Person person) {
         this.id = id;
         this.name = name;
         this.gender = gender;
+        this.person = person;
     }
 
     public long getId() {
@@ -34,5 +36,13 @@ public class Pet {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }
