@@ -9,7 +9,7 @@ public class Person {
     private String lastname;
     private String gender;
     private boolean vaccinated;
-    private List<Long> petIds;
+    private List<Long> pets;
 
     public Person(long id, String firstname, String lastname, String gender, boolean vaccinated, List<Long> petIds) {
         this.id = id;
@@ -17,7 +17,7 @@ public class Person {
         this.lastname = lastname;
         this.gender = gender;
         this.vaccinated = vaccinated;
-        this.petIds = petIds;
+        this.pets = petIds;
     }
 
     public long getId() {
@@ -60,11 +60,11 @@ public class Person {
         this.vaccinated = vaccinated;
     }
 
-    public List<Long> getPetIds() {
-        return petIds;
+    public List<Long> getPets() {
+        return pets;
     }
 
-    public void setPetIds(List<Long> petIds) {
-        this.petIds = petIds;
+    public void setPets(List<Long> pets) {
+        this.pets = pets;
     }
 }

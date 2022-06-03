@@ -13,6 +13,8 @@ public class PersonManipulationRequest {
         this.vaccinated = vaccinated;
     }
 
+    public PersonManipulationRequest() {}
+
     public String getGender() {
         return gender;
     }
