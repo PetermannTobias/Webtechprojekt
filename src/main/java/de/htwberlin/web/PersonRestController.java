@@ -5,12 +5,15 @@ import de.htwberlin.web.api.Person;
 import de.htwberlin.web.api.PersonManipulationRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
+@Validated
 public class PersonRestController {
 
     private final PersonService personService;
@@ -31,10 +34,13 @@ public class PersonRestController {
     }
 
     @PostMapping(path = "/api/v1/persons")
-    public ResponseEntity<Void> createPerson(@RequestBody PersonManipulationRequest request) throws URISyntaxException {
+    public ResponseEntity<Void> createPerson(@Valid@RequestBody PersonManipulationRequest request) throws URISyntaxException {
         var person = personService.create(request);
         URI uri = new URI("/api/v1/persons/" + person.getId());
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity
+                .created(uri)
+                .header("Access-Control-Expose-Headers", "Location")
+                .build();
     }
 
     @PutMapping(path = "/api/v1/persons/{id}")

@@ -1,17 +1,23 @@
 package de.htwberlin.web.api;
 
-public class PersonManipulationRequest {
-    private String firstname;
-    private String lastname;
-    private String gender;
-    private boolean vaccinated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-    public PersonManipulationRequest(String firstname, String lastname,String gender, boolean vaccinated) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.gender = gender;
-        this.vaccinated = vaccinated;
-    }
+public class PersonManipulationRequest {
+    @Size(min = 3, message = "Please provide a first name with 3 characters or more.")
+    private String firstname;
+
+    @NotBlank(message = "The last name must not be empty.")
+    private String lastname;
+
+    @Pattern(
+            regexp = "MALE|FEMALE|DIVERSE|UNKOWN",
+            message = "Please provide 'MALE', 'FEMALE', 'DIVERSE' or 'UNKNOWN' for gender"
+    )
+    private String gender;
+
+    private boolean vaccinated;
 
     public PersonManipulationRequest() {}
 
